@@ -1,0 +1,59 @@
+version: "3.3"
+
+services:
+  postgres:
+    container_name: nest_postgres
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - db_network
+  postgres_admin:
+    container_name: nest_pg_admin
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - 8020:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL= email@email.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_LISTEN_ADDRESS=0.0.0.0
+    networks:
+      - db_network
+    depends_on:
+      - postgres
+  server:
+    container_name: task_manager_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - DB_TYPE=postgres
+      - DB_PORT=5432
+      - DB_HOST=localhost
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=task_management
+      - JWT_SECRET=lapostafest
+      - JWT_EXPIRE=3600
+    networks:
+      - db_network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  db_network:
