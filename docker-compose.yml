@@ -1,4 +1,4 @@
-version: "3.3"
+version: '3.3'
 
 services:
   postgres:
@@ -21,8 +21,8 @@ services:
     ports:
       - 8020:80
     environment:
-      - PGADMIN_DEFAULT_EMAIL= email@email.com
-      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DEFAULT_EMAIL=email@email.com
+      - PGADMIN_DEFAULT_PASSWORD=Postgres10#
       - PGADMIN_LISTEN_ADDRESS=0.0.0.0
     networks:
       - db_network
@@ -41,10 +41,10 @@ services:
     environment:
       - DB_TYPE=postgres
       - DB_PORT=5432
-      - DB_HOST=localhost
+      - DB_HOST=postgres
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=task_management
+      - DB_NAME=ticket_system
       - JWT_SECRET=lapostafest
       - JWT_EXPIRE=3600
     networks:
