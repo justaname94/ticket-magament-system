@@ -1,5 +1,6 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { Any, EntityRepository, Repository } from 'typeorm';
+import { join } from 'path';
+import { Any, EntityRepository, Repository, TreeChildren } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { TicketStatus } from './ticket-status.enum';
@@ -35,22 +36,31 @@ export class TicketRepository extends Repository<Ticket> {
   async getTickets(user?: User, all: boolean = false): Promise<Ticket[]> {
     let tickets: Ticket[];
 
+    const removeCommentUserData = comment => {
+      delete comment.user.password;
+      delete comment.user.salt;
+    };
+
     try {
       if (!all) {
         tickets = await this.find({ where: { userId: user.id } });
         tickets = tickets.map(ticket => {
           delete ticket.userId;
+
+          ticket.comments.map(removeCommentUserData);
           return ticket;
         });
       } else {
-        tickets = await this.find({ relations: ['user'] });
-
-        // Remove user sensitive data
+        tickets = await this.find({
+          relations: ['user', 'comments'],
+        }); // Remove user sensitive data
         tickets = tickets.map(ticket => {
           delete ticket.userId;
           const { firstName, lastName, isAdmin } = ticket.user;
           // @ts-ignore
           ticket.user = { firstName, lastName, isAdmin };
+
+          ticket.comments.map(removeCommentUserData);
 
           return ticket;
         });

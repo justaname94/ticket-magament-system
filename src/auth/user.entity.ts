@@ -37,14 +37,14 @@ export class User extends BaseEntity {
   @OneToMany(
     type => Ticket,
     ticket => ticket.user,
-    { eager: true },
+    { eager: false },
   )
   tickets: Ticket[];
 
   @OneToMany(
     type => Comment,
     comment => comment.user,
-    { eager: true },
+    { eager: false },
   )
   comments: Comment[];
 

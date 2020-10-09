@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -32,7 +33,7 @@ export class Comment extends BaseEntity {
   @ManyToOne(
     type => User,
     user => user.comments,
-    { eager: false },
+    { eager: true },
   )
   user: User;
 

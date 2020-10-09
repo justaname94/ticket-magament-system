@@ -17,10 +17,10 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { AdminGuard } from '../../auth/admin.guards';
 import { User } from '../../auth/user.entity';
 import { CreateTicketDto } from '../dto/create-ticket.dto';
-import { Ticket } from '../tickets.entity';
-import { TicketsService } from './tickets.service';
 import { TicketStatusValidation } from '../pipes/ticket-status-validation.pipes';
 import { TicketStatus } from '../ticket-status.enum';
+import { Ticket } from '../tickets.entity';
+import { TicketsService } from './tickets.service';
 
 @Controller('tickets')
 @UseGuards(AuthGuard())
