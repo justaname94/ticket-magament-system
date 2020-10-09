@@ -9,6 +9,9 @@ export class AuthController {
 
   @Post('/signup')
   signUp(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+    const { isAdmin } = createUserDto;
+    createUserDto.isAdmin = isAdmin.toString() === 'true' ? true : false;
+
     return this.authService.createUser(createUserDto);
   }
 
