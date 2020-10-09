@@ -27,6 +27,7 @@ export class CommentRepository extends Repository<Comment> {
 
     delete comment.user;
     delete comment.userId;
+    delete comment.ticket.comments;
 
     return comment;
   }
