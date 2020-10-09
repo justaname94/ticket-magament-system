@@ -8,6 +8,7 @@ import {
   Unique,
 } from 'typeorm';
 import { Ticket } from '../tickets/tickets.entity';
+import { Comment } from '../comments/comments.entity';
 
 @Entity()
 @Unique(['email'])
@@ -39,6 +40,13 @@ export class User extends BaseEntity {
     { eager: true },
   )
   tickets: Ticket[];
+
+  @OneToMany(
+    type => Comment,
+    comment => comment.user,
+    { eager: true },
+  )
+  comments: Comment[];
 
   async validatePassword(password: string): Promise<boolean> {
     const genHash = await hash(password, this.salt);

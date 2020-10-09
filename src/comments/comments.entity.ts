@@ -1,0 +1,41 @@
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Ticket } from '../tickets/tickets.entity';
+import { User } from '../auth/user.entity';
+
+@Entity()
+export class Comment extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  body: string;
+
+  @Column({ type: 'timestamp', default: () => 'now()' })
+  createdAt: Date;
+
+  @ManyToOne(
+    type => Ticket,
+    ticket => ticket.comments,
+    { eager: false },
+  )
+  ticket: Ticket;
+
+  @Column()
+  ticketId: number;
+
+  @ManyToOne(
+    type => User,
+    user => user.comments,
+    { eager: false },
+  )
+  user: User;
+
+  @Column()
+  userId: number;
+}

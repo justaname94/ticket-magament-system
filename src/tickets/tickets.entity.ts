@@ -4,10 +4,12 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { TicketStatus } from './ticket-status.enum';
+import { Comment } from '../comments/comments.entity';
 
 @Entity()
 export class Ticket extends BaseEntity {
@@ -26,9 +28,6 @@ export class Ticket extends BaseEntity {
   @Column({ type: 'timestamp', default: () => 'now()' })
   createdAt: Date;
 
-  @Column({ type: 'timestamp', default: () => 'now()' })
-  updatedAt: Date;
-
   @ManyToOne(
     type => User,
     user => user.tickets,
@@ -39,8 +38,10 @@ export class Ticket extends BaseEntity {
   @Column()
   userId: number;
 
-  @BeforeUpdate()
-  updateUpdatedAt() {
-    this.updatedAt = new Date();
-  }
+  @OneToMany(
+    type => Comment,
+    comment => comment.ticket,
+    { eager: true },
+  )
+  comments: Comment[];
 }
