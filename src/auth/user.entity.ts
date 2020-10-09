@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
-import { Ticket } from '../tickets/tickets.entity';
 import { Comment } from '../comments/comments.entity';
+import { Ticket } from '../tickets/tickets.entity';
 
 @Entity()
 @Unique(['email'])

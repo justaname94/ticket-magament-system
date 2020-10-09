@@ -10,8 +10,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
-import { Roles } from 'src/auth/roles.decorator';
-import { RolesGuard } from '../../auth/roles.guards';
+import { AdminGuard } from '../../auth/admin.guards';
 import { User } from '../../auth/user.entity';
 import { CreateTicketDto } from '../dto/create-ticket.dto';
 import { Ticket } from '../tickets.entity';
@@ -25,12 +24,19 @@ export class TicketsController {
   @Post()
   createTicket(
     @Body(ValidationPipe) createTicketDto: CreateTicketDto,
+    @GetUser() user: User,
   ): Promise<Ticket> {
-    return this.ticketsService.createTicket(createTicketDto);
+    return this.ticketsService.createTicket(createTicketDto, user);
+  }
+
+  @Get()
+  getUserTickets(@GetUser() user: User) {
+    return this.ticketsService.getTickets(user);
   }
 
   @Get('/all')
-  @Roles('admin')
-  @UseGuards(new RolesGuard(new Reflector()))
-  getAllTickets(@GetUser() user: User) {}
+  @UseGuards(new AdminGuard())
+  getAllTickets(): Promise<Ticket[]> {
+    return this.ticketsService.getTickets(undefined, true);
+  }
 }

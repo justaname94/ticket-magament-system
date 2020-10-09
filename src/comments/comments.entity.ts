@@ -5,8 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Ticket } from '../tickets/tickets.entity';
 import { User } from '../auth/user.entity';
+import { Ticket } from '../tickets/tickets.entity';
 
 @Entity()
 export class Comment extends BaseEntity {
