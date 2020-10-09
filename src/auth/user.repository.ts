@@ -46,9 +46,13 @@ export class UserRepository extends Repository<User> {
       return null;
     }
 
+    const { firstName, lastName } = user;
+
     const payload = {
       email,
       isAdmin: user.isAdmin,
+      firstName,
+      lastName,
     };
 
     return payload;

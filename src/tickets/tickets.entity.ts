@@ -3,13 +3,14 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../auth/user.entity';
-import { TicketStatus } from './ticket-status.enum';
 import { Comment } from '../comments/comments.entity';
+import { TicketStatus } from './ticket-status.enum';
 
 @Entity()
 export class Ticket extends BaseEntity {
