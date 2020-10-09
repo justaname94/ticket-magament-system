@@ -1,5 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { DeleteQueryBuilder, EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { User } from '../auth/user.entity';
 import { Ticket } from '../tickets/tickets.entity';
 import { Comment } from './comments.entity';

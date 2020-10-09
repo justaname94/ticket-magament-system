@@ -45,8 +45,6 @@ export class TicketRepository extends Repository<Ticket> {
       if (!all) {
         tickets = await this.find({ where: { userId: user.id } });
         tickets = tickets.map(ticket => {
-          delete ticket.userId;
-
           ticket.comments.map(removeCommentUserData);
           return ticket;
         });
@@ -55,7 +53,6 @@ export class TicketRepository extends Repository<Ticket> {
           relations: ['user', 'comments'],
         }); // Remove user sensitive data
         tickets = tickets.map(ticket => {
-          delete ticket.userId;
           const { firstName, lastName, isAdmin } = ticket.user;
           // @ts-ignore
           ticket.user = { firstName, lastName, isAdmin };

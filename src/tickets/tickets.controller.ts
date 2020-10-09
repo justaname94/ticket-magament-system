@@ -14,12 +14,12 @@ import {
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
-import { AdminGuard } from '../../auth/admin.guards';
-import { User } from '../../auth/user.entity';
-import { CreateTicketDto } from '../dto/create-ticket.dto';
-import { TicketStatusValidation } from '../pipes/ticket-status-validation.pipes';
-import { TicketStatus } from '../ticket-status.enum';
-import { Ticket } from '../tickets.entity';
+import { AdminGuard } from '../auth/admin.guards';
+import { User } from '../auth/user.entity';
+import { CreateTicketDto } from './dto/create-ticket.dto';
+import { TicketStatusValidation } from './pipes/ticket-status-validation.pipes';
+import { TicketStatus } from './ticket-status.enum';
+import { Ticket } from './tickets.entity';
 import { TicketsService } from './tickets.service';
 
 @Controller('tickets')

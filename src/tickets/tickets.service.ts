@@ -4,11 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../auth/user.entity';
-import { CreateTicketDto } from '../dto/create-ticket.dto';
-import { TicketStatus } from '../ticket-status.enum';
-import { Ticket } from '../tickets.entity';
-import { TicketRepository } from '../tickets.repository';
+import { User } from '../auth/user.entity';
+import { CreateTicketDto } from './dto/create-ticket.dto';
+import { TicketStatus } from './ticket-status.enum';
+import { Ticket } from './tickets.entity';
+import { TicketRepository } from './tickets.repository';
 
 @Injectable()
 export class TicketsService {
