@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import {
   BaseEntity,
   Column,
@@ -27,6 +28,9 @@ export class User extends BaseEntity {
   password: string;
 
   @Column()
+  isAdmin: boolean;
+
+  @Column()
   salt: string;
 
   @OneToMany(
@@ -35,4 +39,9 @@ export class User extends BaseEntity {
     { eager: true },
   )
   tickets: Ticket[];
+
+  async validatePassword(password: string): Promise<boolean> {
+    const genHash = await hash(password, this.salt);
+    return genHash === this.password;
+  }
 }
