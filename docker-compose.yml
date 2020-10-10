@@ -35,10 +35,9 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 3000:3000
-    volumes:
-      - ./:/usr/src/app
+      - 80:80
     environment:
+      - PORT=80
       - DB_TYPE=postgres
       - DB_PORT=5432
       - DB_HOST=postgres

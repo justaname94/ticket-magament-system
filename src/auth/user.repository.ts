@@ -33,6 +33,9 @@ export class UserRepository extends Repository<User> {
       throw new InternalServerErrorException();
     }
 
+    delete user.salt;
+    delete user.password;
+
     return user;
   }
 
