@@ -53,9 +53,9 @@ export class TicketRepository extends Repository<Ticket> {
           relations: ['user', 'comments'],
         }); // Remove user sensitive data
         tickets = tickets.map(ticket => {
-          const { firstName, lastName, isAdmin } = ticket.user;
+          const { firstName, lastName, isAdmin, email } = ticket.user;
           // @ts-ignore
-          ticket.user = { firstName, lastName, isAdmin };
+          ticket.user = { firstName, lastName, isAdmin, email };
 
           ticket.comments.map(removeCommentUserData);
 
