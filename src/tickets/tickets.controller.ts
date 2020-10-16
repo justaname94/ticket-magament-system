@@ -47,6 +47,7 @@ export class TicketsController {
   }
 
   @Patch(':id/status')
+  @UseGuards(new AdminGuard())
   updateTicketStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body('status', TicketStatusValidation) status: TicketStatus,
