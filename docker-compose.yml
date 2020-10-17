@@ -20,6 +20,8 @@ services:
     restart: always
     ports:
       - 8020:80
+    volumes:
+      - ./secrets:/usr/secrets
     environment:
       - PGADMIN_DEFAULT_EMAIL=email@email.com
       - PGADMIN_DEFAULT_PASSWORD=Postgres10#
@@ -46,6 +48,7 @@ services:
       - DB_NAME=ticket_system
       - JWT_SECRET=lapostafest
       - JWT_EXPIRE=21600
+      - NODE_ENV=production
     networks:
       - db_network
     depends_on:
